@@ -31,7 +31,7 @@ USAGE
 <!-- commands -->
 * [`stonk-cli hello [FILE]`](#stonk-cli-hello-file)
 * [`stonk-cli help [COMMAND]`](#stonk-cli-help-command)
-* [`stonk-cli price [FILE]`](#stonk-cli-price-file)
+* [`stonk-cli price`](#stonk-cli-price)
 
 ## `stonk-cli hello [FILE]`
 
@@ -70,18 +70,34 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `stonk-cli price [FILE]`
+## `stonk-cli price`
 
-describe the command here
+get the price of a stock
 
 ```
 USAGE
-  $ stonk-cli price [FILE]
+  $ stonk-cli price
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -D, --days         used with --range to measure days
+  -M, --months       used with --range to measure months
+  -R, --reverse      reverses --range to end (instead of starting) on the specified date of interest
+  -Y, --years        used with --range to measure years
+
+  -d, --date=date    [default: 2021-4-1] full date of interest in yyyy-m-d format. for less granularity, use --year,
+                     --month, and/or --day
+
+  -h, --help         show CLI help
+
+  -n, --name=name    (required) name/ticker/symbol of stock
+
+  -r, --range=range  period of time starting from specified date of interest. default unit is month.
+
+  --day=day          [default: 1] day of date of interest
+
+  --month=month      [default: 4] month of date of interest
+
+  --year=year        [default: 2021] year of date of interest
 ```
 
 _See code: [src/commands/price.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/price.ts)_

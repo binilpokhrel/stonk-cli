@@ -1,11 +1,14 @@
 import { Command, flags } from '@oclif/command';
-import { getUrlsByTicker } from '../services/article.service';
-import { DateFlags, StaticDateFlags } from '../services/date.service';
+import { Article } from "../models/articles.model";
+import * as ArticleService from '../services/article.service';
+import { dateClause, DateFlags, StaticDateFlags } from '../services/date.service';
+import {cli} from 'cli-ux';
 
 enum BaseFlags {
   HELP = 'help',
   SYMBOL = 'symbol',
-  PUBLISHER = 'publisher'
+  PUBLISHER = 'publisher',
+  LIMIT = "limit"
 }
 
 const NewsFlags = {
@@ -29,6 +32,10 @@ export default class News extends Command {
       char: 'p',
       description: 'name of publisher(s) to search for',
       multiple: true
+    }),
+    [NewsFlags.LIMIT]: flags.integer({
+      char: 'l',
+      description: 'number of rows to return'
     })
   };
 
@@ -39,10 +46,25 @@ export default class News extends Command {
       this.error('You must provide a publisher or a symbol!');
     }
 
-    const urls = await getUrlsByTicker(flags[NewsFlags.SYMBOL], 50);
+    let articles: Article[];
 
-    urls.forEach(url => this.log(url));
+    if (flags[NewsFlags.PUBLISHER] && flags[NewsFlags.SYMBOL]) {
+      articles = await ArticleService.getUrlsByTickerAndPublisher({tickers: flags[NewsFlags.SYMBOL], publishers: flags[NewsFlags.PUBLISHER], limit: flags[NewsFlags.LIMIT]});
+    } else if (flags[NewsFlags.PUBLISHER]) {
+      articles = await ArticleService.getUrlsByPublisher({publishers: flags[NewsFlags.PUBLISHER], limit: flags[NewsFlags.LIMIT]});
+    } else { // ticker only
+      articles = await ArticleService.getUrlsByTicker({tickers: flags[NewsFlags.SYMBOL], limit: flags[NewsFlags.LIMIT]});
+    }
 
-    this.log(`hello from /Users/binilpokhrel/Documents/Code/stonk-cli/src/commands/news.ts`);
+    cli.table(articles, {
+      headline: {},
+      date: {
+        get: row => row.date.toDateString()
+      },
+      publisher: {},
+      url: {
+        header: "URL"
+      }
+    });
   }
 }

@@ -15,3 +15,7 @@ export const connect = async () => {
 export const listAsValues = (arr: string[]) => {
     return '(' + arr.map(el => `'${el}'`).join(",") + ')';
 }
+
+export const limitIfExists = (limit?: number) => {
+    return limit && limit > 0 ? 'limit ' + limit : '';
+}

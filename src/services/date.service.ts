@@ -16,26 +16,19 @@ export const StaticDateFlags = {
     [DateFlags.FULLDATE]: flags.string({
         char: 'f',
         description: `full date of interest in yyyy-m-d format. for less granularity, use --${DateFlags.YEAR}, --${DateFlags.MONTH}, and/or --${DateFlags.DAY}`,
-        default: () => {
-            const d = new Date;
-            return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
-        },
         exclusive: [DateFlags.YEAR, DateFlags.MONTH, DateFlags.DAY]
     }),
     [DateFlags.YEAR]: flags.integer({
         char: 'y',
-        description: 'year of date of interest',
-        default: () => { return (new Date).getFullYear() },
+        description: 'year of date of interest'
     }),
     [DateFlags.MONTH]: flags.integer({
         char: 'm',
-        description: 'month of date of interest',
-        default: () => { return (new Date).getMonth() + 1 },
+        description: 'month of date of interest'
     }),
     [DateFlags.DAY]: flags.integer({
         char: 'd',
-        description: 'day of date of interest',
-        default: () => { return (new Date).getDate() },
+        description: 'day of date of interest'
     }),
     [DateFlags.RANGE]: flags.integer({
         char: 'r',

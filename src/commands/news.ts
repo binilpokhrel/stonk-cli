@@ -1,4 +1,5 @@
-import { Command, flags } from '@oclif/command'
+import { Command, flags } from '@oclif/command';
+import { getUrlsByTicker } from '../services/article.service';
 import { DateFlags, StaticDateFlags } from '../services/date.service';
 
 enum BaseFlags {
@@ -37,6 +38,10 @@ export default class News extends Command {
     if (!flags[NewsFlags.PUBLISHER] && !flags[NewsFlags.SYMBOL]) {
       this.error('You must provide a publisher or a symbol!');
     }
+
+    const urls = await getUrlsByTicker(flags[NewsFlags.SYMBOL], 50);
+
+    urls.forEach(url => this.log(url));
 
     this.log(`hello from /Users/binilpokhrel/Documents/Code/stonk-cli/src/commands/news.ts`);
   }

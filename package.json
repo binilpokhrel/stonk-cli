@@ -11,6 +11,8 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "dotenv": "^8.2.0",
+    "mysql2": "^2.2.5",
     "tslib": "^1"
   },
   "devDependencies": {

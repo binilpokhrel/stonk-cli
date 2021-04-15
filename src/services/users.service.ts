@@ -1,6 +1,6 @@
 import { Users } from "../models/users.model";
-import { connect } from "./base.service";
 import { readFileSync , existsSync} from 'fs';
+import { asArray, connect } from "./base.service";
 
 export const getUserData = async (name: string) => {
     const db = await connect();
@@ -14,7 +14,7 @@ export const getUserData = async (name: string) => {
  
     db.destroy();
     
-    if ((rows as Users[]).length != 1) {
+    if ((asArray(rows) as Users[]).length != 1) {
         return null;
     }
 
@@ -46,7 +46,7 @@ export const getCurrentUser = async () => {
 }
 
 export const getCurrentUserId = async () => {
-    return (await getCurrentUser())[0];
+    return Number((await getCurrentUser())[0]);
 }
 
 export const getCurrentUserName = async () => {
@@ -54,5 +54,5 @@ export const getCurrentUserName = async () => {
 }
 
 export const getCurrentUserPriv = async () => {
-    return (await getCurrentUser())[2];
+    return Boolean(Number((await getCurrentUser())[2]));
 }

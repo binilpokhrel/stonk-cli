@@ -18,7 +18,7 @@ export default class User extends Command {
   static description = 'describe the command here'
 
   static flags = {
-    [userFlags.NAME]: flags.string({char: 'n', description: 'username', required: true}),
+    [userFlags.NAME]: flags.string({char: 'n', description: 'username or fullname', required: true}),
     [userFlags.REGISTER]: flags.boolean({
       char: 'r',
       description: 'use this flag to specify that we wish for this user to be registered'
@@ -39,7 +39,7 @@ export default class User extends Command {
 
     const userData = await UsersService.getUserData(flags.name);
     if (userData == null) { // an entry for the user didn't exist
-      this.error(`user ${flags[userFlags.NAME]} does not exist, please register by running the same command with '-r' flag`);
+      this.error(`User '${flags[userFlags.NAME]}' is not registered!`, {suggestions: [`user -n "${flags[userFlags.NAME]}" -r`]});
     }
     let id = userData.user_id;
     let name = userData.name;

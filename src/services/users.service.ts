@@ -36,7 +36,19 @@ export const registerUser = async (name: string, priv: boolean) => {
     return;
 }
 
-export const getUserFromFile = async () => {
+export const getCurrentUser = async () => {
     const data = readFileSync('config.txt').toString();
     return data.split(",");
+}
+
+export const getCurrentUserId = async () => {
+    return (await getCurrentUser())[0]
+}
+
+export const getCurrentUserName = async () => {
+    (await getCurrentUser())[1]
+}
+
+export const getCurrentUserPriv = async () => {
+    (await getCurrentUser())[2]
 }

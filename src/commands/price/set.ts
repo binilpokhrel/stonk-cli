@@ -70,10 +70,10 @@ export default class Price extends Command {
     const { args, flags } = this.parse(Price);
 
     if(!await UsersService.checkUserLoggedIn()) {
-      this.error("please login using user command first");
+      this.error('please login using user command first', {suggestions: ['user -h']});
     }
 
-    if((await UsersService.getCurrentUserPriv()) != "1") {
+    if(!await UsersService.getCurrentUserPriv()) {
       this.error('Current user does not have write permissions on database');
     }
 

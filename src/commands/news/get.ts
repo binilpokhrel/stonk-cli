@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import { cli } from 'cli-ux';
-import { Article } from "../../models/articles.model";
+import { Article } from '../../models/articles.model';
 import * as ArticleService from '../../services/article.service';
 import { DateFlags, StaticDateFlags } from '../../services/date.service';
 
@@ -8,7 +8,7 @@ enum BaseFlags {
     HELP = 'help',
     SYMBOL = 'symbol',
     PUBLISHER = 'publisher',
-    LIMIT = "limit"
+    LIMIT = 'limit'
 }
 
 const NewsFlags = {
@@ -63,7 +63,7 @@ export default class News extends Command {
             },
             publisher: {},
             url: {
-                header: "URL"
+                header: 'URL'
             }
         });
     }

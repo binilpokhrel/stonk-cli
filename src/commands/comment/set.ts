@@ -51,12 +51,12 @@ export default class Comment extends Command {
     ]
 
     async run() {
+        const { args, flags } = this.parse(Comment);
+
         const priv = await UsersService.getCurrentUserPriv();
         if (!priv) {
             this.error('You must be logged in as a privileged user to create comments!', {suggestions: ['user -h']})
         }
-
-        const { args, flags } = this.parse(Comment);
 
         if (!args.param) {
             switch (flags[CommentFlags.TYPE]) {

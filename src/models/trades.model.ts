@@ -6,5 +6,5 @@ export interface TradeHistory {
     high: number,
     low: number,
     close: number,
-    adjclose: number
+    adj_close: number
 }

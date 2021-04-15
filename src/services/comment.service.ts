@@ -1,8 +1,14 @@
 import { GeneralComment } from "../models/comments.model";
 import { asArray, connect } from "./base.service";
+import * as UsersService from './users.service';
 
-export const setComment = async (params: {message: string, tickers: string[], tags: string[], type?: string, specialization: string}) => {
+
+export const setComment = async (
+    params: {message: string, tickers: string[], tags: string[], type?: string, specialization: string}
+): Promise<{results?: GeneralComment[], error?: Error}> => {
     const db = await connect();
+
+    const user_id = await UsersService.getCurrentUserId();
 
     let queries: string[] = [];
 
@@ -10,24 +16,21 @@ export const setComment = async (params: {message: string, tickers: string[], ta
         `INSERT INTO comments 
             (user_id, created_at, last_updated_at, message)
         VALUES
-            (${'1'}, NOW(), NOW(), '${params.message}')`;
+            (${user_id}, NOW(), NOW(), '${params.message}')`;
     
     queries.push(`SET @last_comment_id = LAST_INSERT_ID()`);
 
     let specialization_query = '';
     switch (params.type) {
         case 'finance': {
-            console.log("finance");
             specialization_query = `INSERT INTO finance_comments VALUES (@last_comment_id, ${Number(params.specialization)})`;
             break;
         }
         case 'article': {
-            console.log("article");
             specialization_query = `INSERT INTO article_comments VALUES (@last_comment_id, '${params.specialization}')`;
             break;
         }
         case 'history': {
-            console.log("history");
             specialization_query = `INSERT INTO history_comments VALUES (@last_comment_id, CAST('${params.specialization}' as datetime))`;
             break;
         }
@@ -51,7 +54,6 @@ export const setComment = async (params: {message: string, tickers: string[], ta
     await db.beginTransaction();
     let rows, fields
     try {
-        console.log("try");
         for (let i = 0; i < queries.length; i++) {
             const query = queries[i];
             if (query && query.length > 0) {
@@ -64,16 +66,11 @@ export const setComment = async (params: {message: string, tickers: string[], ta
             }
         }
         db.commit();
-        console.log("committed");
     } catch (e) {
-        console.log("caught err");
-        console.error(e);
         db.rollback();
-    } finally {
-        console.log("finally");
-
-        db.destroy();
+        return {error: e}
     }
  
-    return (asArray(rows) as GeneralComment[])
+    db.destroy();
+    return {results: (asArray(rows) as GeneralComment[])}
 }

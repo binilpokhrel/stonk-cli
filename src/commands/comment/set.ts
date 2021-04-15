@@ -1,6 +1,6 @@
-import { Command, flags } from '@oclif/command'
-import { DateFlags, StaticDateFlags } from '../../services/date.service';
+import { Command, flags } from '@oclif/command';
 import * as CommentService from '../../services/comment.service';
+import * as UsersService from '../../services/users.service';
 
 enum BaseFlags {
     HELP = 'help',
@@ -50,6 +50,11 @@ export default class Comment extends Command {
     ]
 
     async run() {
+        const priv = await UsersService.getCurrentUserPriv();
+        if (!priv) {
+            this.error('You must be logged in as a privileged user to create comments!', {suggestions: ['user -h']})
+        }
+
         const { args, flags } = this.parse(Comment);
 
         if (!args.param) {
@@ -73,12 +78,13 @@ export default class Comment extends Command {
             type: flags[CommentFlags.TYPE],
             specialization: args.param
         }
-
-        console.log(JSON.stringify(params));
         
-        const comments = await CommentService.setComment(params);
+        const {results: comments, error: comment_error} = await CommentService.setComment(params);
 
-        this.log("inserted!!")
-        comments.forEach(comment => this.log(`comment: ${JSON.stringify(comment)}`));
+        if (comment_error) {
+            this.error(`from server while trying to add comment: ${comment_error.message}`);
+        } else {
+            this.log(`Comment added successfully with id ${(<any>comments![0]).insertId}`)
+        }
     }
 }

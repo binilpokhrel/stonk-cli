@@ -1,5 +1,5 @@
 export interface Users {
-    userID: number,
+    user_id: number,
     name: string,
     priv: boolean
 }

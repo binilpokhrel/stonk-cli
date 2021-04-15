@@ -1,11 +1,12 @@
 import { Users } from "../models/users.model";
 import { connect } from "./base.service";
+import { readFileSync } from 'fs';
 
 export const getUserData = async (name: string) => {
     const db = await connect();
 
     const query =
-        `SELECT name, priv FROM users where name="${name}"`;
+        `SELECT * FROM users where name="${name}"`;
 
     console.log(query);
 
@@ -33,4 +34,9 @@ export const registerUser = async (name: string, priv: boolean) => {
     db.destroy();
 
     return;
+}
+
+export const getUserFromFile = async () => {
+    const data = readFileSync('config.txt').toString();
+    return data.split(",");
 }

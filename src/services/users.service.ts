@@ -42,13 +42,13 @@ export const getCurrentUser = async () => {
 }
 
 export const getCurrentUserId = async () => {
-    return (await getCurrentUser())[0]
+    return (await getCurrentUser())[0];
 }
 
 export const getCurrentUserName = async () => {
-    (await getCurrentUser())[1]
+    return (await getCurrentUser())[1];
 }
 
 export const getCurrentUserPriv = async () => {
-    (await getCurrentUser())[2]
+    return (await getCurrentUser())[2];
 }

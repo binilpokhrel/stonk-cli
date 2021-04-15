@@ -2,7 +2,6 @@ import { ArticleComment, FinanceComment, GeneralComment, HistoryComment } from "
 import { asArray, connect, listAsValues } from "./base.service";
 import * as UsersService from './users.service';
 
-
 export const setComment = async (
     params: {message: string, tickers: string[], tags: string[], type?: string, specialization: string}
 ): Promise<{results?: GeneralComment[], error?: Error}> => {
@@ -12,11 +11,12 @@ export const setComment = async (
 
     let queries: string[] = [];
 
-    queries[0] =
+    queries.push(
         `INSERT INTO comments 
             (user_id, created_at, last_updated_at, message)
         VALUES
-            (${user_id}, NOW(), NOW(), '${params.message}')`;
+            (${user_id}, NOW(), NOW(), '${params.message}')`
+    );
     
     queries.push(`SET @last_comment_id = LAST_INSERT_ID()`);
 
@@ -84,7 +84,8 @@ export const getComments = async (
     const select = [
         'comments.comment_id',
         'users.name as author',
-        'comments.last_updated_at',
+        // `CONCAT(comments.last_updated_at, '.000+00:00') as last_updated_at`,
+        '(UNIX_TIMESTAMP(comments.last_updated_at) * 1000) as last_updated_at',
         'comments.message',
         'GROUP_CONCAT(DISTINCT comment_tickers.ticker SEPARATOR \',\') as tickers'
     ];
@@ -93,23 +94,19 @@ export const getComments = async (
         'comment_tickers using (comment_id)'
     ];
     const where = [
-        `comment_tickers.ticker in ${listAsValues(params.tickers)}`
-        // alternatively, can do:
-        /*
         `comment_id in
             (SELECT DISTINCT comment_id FROM comments INNER JOIN comment_tickers using (comment_id) WHERE comment_tickers.ticker in ${listAsValues(params.tickers)})`
-        */
+        // alternatively, can do:
+        // `comment_tickers.ticker in ${listAsValues(params.tickers)}`
     ]
 
     if (params.tags) {
         select.push('GROUP_CONCAT(DISTINCT comment_tags.tag SEPARATOR \',\') as tags');
         inner_join.push('comment_tags using (comment_id)');
-        where.push(`comment_tags.tag in ${listAsValues(params.tags)}`);
-        // alternatively, can do:
-        /*
         where.push(`comment_id in
             (SELECT DISTINCT comment_id FROM comments INNER JOIN comment_tags using (comment_id) WHERE comment_tags.tag in ${listAsValues(params.tags)})`);
-        */
+        // alternatively, can do:
+        // where.push(`comment_tags.tag in ${listAsValues(params.tags)}`);
     }
     if (params.type && params.type == 'finance') {
         select.push('finance_comments.fiscal_year');
@@ -179,11 +176,10 @@ export const getComments = async (
 
     rows = asArray(rows).map(row => {
         if (params.tags) {
-            return {...row, "tickers": row.tickers.split(','), "tags": row.tags.split(',')}
+            return {...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(','), "tags": row.tags.split(',')}
         } else {
-            return {...row, "tickers": row.tickers.split(',')}
+            return {...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(',')}
         }
-        
     });
 
     // asArray(rows).forEach(comment => console.log(JSON.stringify(comment)));

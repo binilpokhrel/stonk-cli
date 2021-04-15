@@ -1,5 +1,5 @@
 import { Article } from "../models/articles.model";
-import { connect, limitIfExists, listAsValues } from "./base.service";
+import { asArray, connect, limitIfExists, listAsValues } from "./base.service";
 
 export const getUrlsByTicker = async (params: {tickers: string[], limit?: number}) => {
     const db = await connect();
@@ -13,7 +13,7 @@ export const getUrlsByTicker = async (params: {tickers: string[], limit?: number
  
     db.destroy();
     
-    return (rows as Article[]);
+    return (asArray(rows) as Article[]);
 }
 
 export const getUrlsByPublisher = async (params: {publishers: string[], limit?: number}) => {
@@ -28,7 +28,7 @@ export const getUrlsByPublisher = async (params: {publishers: string[], limit?: 
  
     db.destroy();
     
-    return (rows as Article[]);
+    return (asArray(rows) as Article[]);
 }
 
 export const getUrlsByTickerAndPublisher = async (params: {tickers: string[], publishers: string[], limit?: number}) => {
@@ -52,5 +52,5 @@ export const getUrlsByTickerAndPublisher = async (params: {tickers: string[], pu
  
     db.destroy();
     
-    return (rows as Article[]);
+    return (asArray(rows) as Article[]);
 }

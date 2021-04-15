@@ -19,3 +19,7 @@ export const listAsValues = (arr: string[]) => {
 export const limitIfExists = (limit?: number) => {
     return limit && limit > 0 ? 'limit ' + limit : '';
 }
+
+export const asArray = (result: any) => {
+    return result instanceof Array ? result : [result];
+}

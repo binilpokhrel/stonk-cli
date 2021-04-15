@@ -5,11 +5,11 @@ export interface Comment {
     last_updated_at: Date,
     message: string,
     tickers?: string[],
-    tags?: string[]
+    tags?: string[],
+    author?: string
 }
 
 export interface GeneralComment extends Comment {
-    null: null
 }
 
 export interface FinanceComment extends Comment {

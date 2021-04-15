@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import * as CommentService from '../../services/comment.service';
+import * as CommentsService from '../../services/comment.service';
 import * as UsersService from '../../services/users.service';
 
 enum BaseFlags {
@@ -23,7 +23,8 @@ export default class Comment extends Command {
         [CommentFlags.SYMBOL]: flags.string({
             char: 's',
             description: 'name/ticker/symbol of stock(s)',
-            multiple: true
+            multiple: true,
+            required: true
         }),
         [CommentFlags.TAG]: flags.string({
             char: 'T',
@@ -79,7 +80,7 @@ export default class Comment extends Command {
             specialization: args.param
         }
         
-        const {results: comments, error: comment_error} = await CommentService.setComment(params);
+        const {results: comments, error: comment_error} = await CommentsService.setComment(params);
 
         if (comment_error) {
             this.error(`from server while trying to add comment: ${comment_error.message}`);

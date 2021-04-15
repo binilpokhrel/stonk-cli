@@ -20,7 +20,7 @@ $ npm install -g stonk-cli
 $ stonk-cli COMMAND
 running command...
 $ stonk-cli (-v|--version|version)
-stonk-cli/0.0.0 darwin-x64 node-v15.13.0
+stonk-cli/0.0.0 darwin-x64 node-v14.16.1
 $ stonk-cli --help [COMMAND]
 USAGE
   $ stonk-cli COMMAND
@@ -29,14 +29,13 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [stonk-cli](#stonk-cli)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`stonk-cli comment`](#stonk-cli-comment)
-  - [`stonk-cli hello [FILE]`](#stonk-cli-hello-file)
-  - [`stonk-cli help [COMMAND]`](#stonk-cli-help-command)
-  - [`stonk-cli news`](#stonk-cli-news)
-  - [`stonk-cli price`](#stonk-cli-price)
+* [`stonk-cli comment`](#stonk-cli-comment)
+* [`stonk-cli hello [FILE]`](#stonk-cli-hello-file)
+* [`stonk-cli help [COMMAND]`](#stonk-cli-help-command)
+* [`stonk-cli ipo [FILE]`](#stonk-cli-ipo-file)
+* [`stonk-cli news`](#stonk-cli-news)
+* [`stonk-cli price`](#stonk-cli-price)
+* [`stonk-cli user [FILE]`](#stonk-cli-user-file)
 
 ## `stonk-cli comment`
 
@@ -51,9 +50,9 @@ OPTIONS
   -M, --months               used with --range to measure months
   -R, --reverse              reverses --range to end (instead of starting) on the specified date of interest
   -Y, --years                used with --range to measure years
-  -d, --day=day              [default: 13] day of date of interest
+  -d, --day=day              [default: 14] day of date of interest
 
-  -f, --full-date=full-date  [default: 2021-4-13] full date of interest in yyyy-m-d format. for less granularity, use
+  -f, --full-date=full-date  [default: 2021-4-14] full date of interest in yyyy-m-d format. for less granularity, use
                              --year, --month, and/or --day
 
   -h, --help                 show CLI help
@@ -108,6 +107,22 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
+## `stonk-cli ipo [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stonk-cli ipo [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/ipo.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/ipo.ts)_
+
 ## `stonk-cli news`
 
 retrieve article URLs, with optional restrictions on publishers and on symbols mentioned in the articles
@@ -121,9 +136,9 @@ OPTIONS
   -M, --months               used with --range to measure months
   -R, --reverse              reverses --range to end (instead of starting) on the specified date of interest
   -Y, --years                used with --range to measure years
-  -d, --day=day              [default: 13] day of date of interest
+  -d, --day=day              [default: 14] day of date of interest
 
-  -f, --full-date=full-date  [default: 2021-4-13] full date of interest in yyyy-m-d format. for less granularity, use
+  -f, --full-date=full-date  [default: 2021-4-14] full date of interest in yyyy-m-d format. for less granularity, use
                              --year, --month, and/or --day
 
   -h, --help                 show CLI help
@@ -154,9 +169,9 @@ OPTIONS
   -M, --months               used with --range to measure months
   -R, --reverse              reverses --range to end (instead of starting) on the specified date of interest
   -Y, --years                used with --range to measure years
-  -d, --day=day              [default: 13] day of date of interest
+  -d, --day=day              [default: 14] day of date of interest
 
-  -f, --full-date=full-date  [default: 2021-4-13] full date of interest in yyyy-m-d format. for less granularity, use
+  -f, --full-date=full-date  [default: 2021-4-14] full date of interest in yyyy-m-d format. for less granularity, use
                              --year, --month, and/or --day
 
   -h, --help                 show CLI help
@@ -171,4 +186,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/price.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/price.ts)_
+
+## `stonk-cli user [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stonk-cli user [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/user.ts)_
 <!-- commandsstop -->

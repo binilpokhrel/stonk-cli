@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
-import { TradeHistory } from '../models/trades.model';
-import { DateFlags, StaticDateFlags } from '../services/date.service'
-import * as TradeService from '../services/trades.service'
+import { TradeHistory } from '../../models/trades.model';
+import { DateFlags, StaticDateFlags } from '../../services/date.service'
+import * as TradeService from '../../services/trades.service'
 
 enum BaseFlags {
   HELP = 'help',
@@ -81,10 +81,8 @@ export default class Price extends Command {
         const price = await TradeService.getTickerPriceWithDates(flags[BaseFlags.SYMBOL], flags[BaseFlags.TYPE] as keyof TradeHistory, flags[DateFlags.YEAR]?.toString(), flags[DateFlags.MONTH]?.toString(), flags[DateFlags.DAY]?.toString());
         price.forEach(p => this.log(p.toString()));
       }else {
-        this.error("Invalid inputs")
+        this.error("Invalid inputs. Specify a date, and optionally a range to get an aggregation")
       }
     }
-
-    this.log(`hello ${flags[PriceFlags.SYMBOL]} from /Users/binilpokhrel/Documents/Code/stonk-cli/src/commands/price.ts`);
   }
 }

@@ -1,6 +1,6 @@
 import { Users } from "../models/users.model";
+import { readFileSync , existsSync} from 'fs';
 import { asArray, connect } from "./base.service";
-import { readFileSync } from 'fs';
 
 export const getUserData = async (name: string) => {
     const db = await connect();
@@ -34,6 +34,10 @@ export const registerUser = async (name: string, priv: boolean) => {
     db.destroy();
 
     return;
+}
+
+export const checkUserLoggedIn = async () => {
+    return existsSync('config.txt')
 }
 
 export const getCurrentUser = async () => {

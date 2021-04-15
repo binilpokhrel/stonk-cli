@@ -9,8 +9,6 @@ export const getTickerPriceByRange = async (ticker: string, priceType: keyof Tra
             and trade_date > CAST( '${startDate.getFullYear()}-${startDate.getMonth()+1}-${startDate.getDate()+1}' as datetime)
             and trade_date < CAST( '${endDate.getFullYear()}-${endDate.getMonth()+1}-${endDate.getDate()+1}' as datetime)`;
 
-    console.log(query);
-
     const [rows, fields] = await db.execute(query);
  
     db.destroy();
@@ -26,8 +24,6 @@ export const getTickerPrice = async (ticker: string, priceType: keyof TradeHisto
             ${year ? `and year(trade_date)=${year} ` : ''}
             ${month ? `and month(trade_date)=${month} ` : ''}
             ${day ? `and day(trade_date)=${day}` : ''}`;
-
-    console.log(query);
 
     const [rows, fields] = await db.execute(query);
  
@@ -61,4 +57,17 @@ export const getAverage = async (ticker: string, priceType: keyof TradeHistory, 
     }
 
     return sum / rows.length
+}
+
+export const addNewTickerHistoryEntry = async (ticker: string, date: string, volume: string, open: string, close: string, high: string, low: string, adj_close: string) => {
+    const db = await connect();
+    const query =
+        `INSERT INTO trade_histories VALUES
+        ('${ticker}', CAST('${date}' as datetime), ${volume}, ${open}, ${high}, ${low}, ${close}, ${adj_close})`;
+
+    await db.execute(query);
+ 
+    db.destroy();
+
+    return;
 }

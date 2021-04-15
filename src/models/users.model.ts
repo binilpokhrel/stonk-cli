@@ -1,4 +1,4 @@
-export interface User {
+export interface Users {
     userID: number,
     name: string,
     priv: boolean

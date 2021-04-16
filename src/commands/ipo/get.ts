@@ -1,6 +1,6 @@
-import {Command, flags} from '@oclif/command';
-import * as ipoService from '../services/ipo.service';
-import { Stock } from "../models/stocks.model";
+import { Command, flags } from '@oclif/command';
+import * as ipoService from '../../services/ipo.service';
+import { Stock } from "../../models/stocks.model";
 
 enum BaseFlags {
   HELP = 'help',
@@ -27,16 +27,16 @@ export default class Ipo extends Command {
       char: 't',
       description: 'the type of ipo data requested',
       default: 'ipo_date',
-      options: ['ipo_date', 'high_day_0', 'open_day_0', 'low_day_0', 'volume_day_0']
+      options: ['ipo_date', 'high_day_0', 'open_day_0', 'low_day_0', 'volume_day_0', 'close_day_0']
     }),
   }
 
   async run() {
-    const {args, flags} = this.parse(Ipo)
+    const { args, flags } = this.parse(Ipo)
 
     const output = await ipoService.getIpoData(flags[ipoFlags.SYMBOL], flags[ipoFlags.TYPE] as keyof Stock);
 
     console.log(output)
-    
+
   }
 }

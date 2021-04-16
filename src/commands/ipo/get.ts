@@ -36,7 +36,7 @@ export default class Ipo extends Command {
 
     const output = await ipoService.getIpoData(flags[ipoFlags.SYMBOL], flags[ipoFlags.TYPE] as keyof Stock);
 
-    console.log(output)
+    console.log(`${flags[ipoFlags.TYPE]} => ${output}`);
 
   }
 }

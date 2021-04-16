@@ -20,7 +20,7 @@ $ npm install -g stonk-cli
 $ stonk-cli COMMAND
 running command...
 $ stonk-cli (-v|--version|version)
-stonk-cli/0.0.0 darwin-x64 node-v15.13.0
+stonk-cli/0.0.0 darwin-x64 node-v14.16.1
 $ stonk-cli --help [COMMAND]
 USAGE
   $ stonk-cli COMMAND
@@ -31,8 +31,10 @@ USAGE
 <!-- commands -->
 * [`stonk-cli comment:get [PARAM]`](#stonk-cli-commentget-param)
 * [`stonk-cli comment:set [PARAM]`](#stonk-cli-commentset-param)
+* [`stonk-cli finances [FILE]`](#stonk-cli-finances-file)
 * [`stonk-cli help [COMMAND]`](#stonk-cli-help-command)
-* [`stonk-cli ipo`](#stonk-cli-ipo)
+* [`stonk-cli ipo:get`](#stonk-cli-ipoget)
+* [`stonk-cli ipo:set`](#stonk-cli-iposet)
 * [`stonk-cli news:get`](#stonk-cli-newsget)
 * [`stonk-cli news:set FILE`](#stonk-cli-newsset-file)
 * [`stonk-cli price:get`](#stonk-cli-priceget)
@@ -81,6 +83,22 @@ OPTIONS
 
 _See code: [src/commands/comment/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/comment/set.ts)_
 
+## `stonk-cli finances [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stonk-cli finances [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/finances.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/finances.ts)_
+
 ## `stonk-cli help [COMMAND]`
 
 display help for stonk-cli
@@ -98,21 +116,44 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `stonk-cli ipo`
+## `stonk-cli ipo:get`
 
-describe the command here
+get ipo data related to a particular stock
 
 ```
 USAGE
-  $ stonk-cli ipo
+  $ stonk-cli ipo:get
 
 OPTIONS
-  -h, --help                                                        show CLI help
-  -s, --symbol=symbol                                               (required) name/ticker/symbol of stock
-  -t, --type=ipo_date|high_day_0|open_day_0|low_day_0|volume_day_0  [default: ipo_date] the type of ipo data requested
+  -h, --help                                                                    show CLI help
+  -s, --symbol=symbol                                                           (required) name/ticker/symbol of stock
+
+  -t, --type=ipo_date|high_day_0|open_day_0|low_day_0|volume_day_0|close_day_0  [default: ipo_date] the type of ipo data
+                                                                                requested
 ```
 
-_See code: [src/commands/ipo.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/ipo.ts)_
+_See code: [src/commands/ipo/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/ipo/get.ts)_
+
+## `stonk-cli ipo:set`
+
+add a new stock and its ipo data to the database
+
+```
+USAGE
+  $ stonk-cli ipo:set
+
+OPTIONS
+  -c, --close=close    (required) closing value of the stock on the first day.
+  -d, --date=date      (required) ipo date of the stock. must be of format yyyy-mm-dd
+  -h, --help           show CLI help
+  -l, --low=low        (required) lowest value of the stock on the first day.
+  -o, --open=open      (required) opening value of the stock on the first day.
+  -s, --symbol=symbol  (required) name/ticker/symbol of stock
+  -u, --high=high      (required) highest value of the stock on the first day.
+  -v, --volume=volume  (required) volume of the stock on the first day.
+```
+
+_See code: [src/commands/ipo/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/ipo/set.ts)_
 
 ## `stonk-cli news:get`
 
@@ -229,7 +270,7 @@ _See code: [src/commands/price/set.ts](https://github.com/binilpokhrel/stonk-cli
 
 ## `stonk-cli user`
 
-describe the command here
+log in as a new or existing user
 
 ```
 USAGE

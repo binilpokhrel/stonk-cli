@@ -1,5 +1,5 @@
 import { TradeHistory } from "../models/trades.model";
-import { connect, listAsValues } from "./base.service";
+import { asArray, connect, listAsValues } from "./base.service";
 
 export const getTickerPriceByRange = async (ticker: string, priceType: keyof TradeHistory, startDate: Date, endDate: Date) => {
     const db = await connect();
@@ -65,9 +65,17 @@ export const addNewTickerHistoryEntry = async (ticker: string, date: string, vol
         `INSERT INTO trade_histories VALUES
         ('${ticker}', CAST('${date}' as datetime), ${volume}, ${open}, ${high}, ${low}, ${close}, ${adj_close})`;
 
-    await db.execute(query);
+    let rows, fields;
+    await db.beginTransaction();
+    try {
+        [rows, fields] = await db.execute(query);
+        db.commit(); 
+    } catch (e) {
+        db.rollback();
+        return {error: e}
+    }
  
     db.destroy();
 
-    return;
+    return {results: asArray(rows as TradeHistory[])};
 }

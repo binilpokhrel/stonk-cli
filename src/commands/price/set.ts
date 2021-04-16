@@ -77,7 +77,9 @@ export default class Price extends Command {
       this.error('Current user does not have write permissions on database');
     }
 
-    await TradeService.addNewTickerHistoryEntry(flags[PriceFlags.SYMBOL],flags[PriceFlags.DATE],flags[PriceFlags.VOLUME],flags[PriceFlags.OPEN],flags[PriceFlags.CLOSE],flags[PriceFlags.HIGH],flags[PriceFlags.LOW],flags[PriceFlags.ADJCLOSE]);
-    
+    const {results: rows, error: e} = await TradeService.addNewTickerHistoryEntry(flags[PriceFlags.SYMBOL],flags[PriceFlags.DATE],flags[PriceFlags.VOLUME],flags[PriceFlags.OPEN],flags[PriceFlags.CLOSE],flags[PriceFlags.HIGH],flags[PriceFlags.LOW],flags[PriceFlags.ADJCLOSE]);
+    if (e) {
+      this.error('Attempted to add new trade price for a stock that does not exist. If you are sure this stock name is not a typo then add the ipo information for this new stock', {suggestions: ['ipo:set -h']});
+    }
   }
 }

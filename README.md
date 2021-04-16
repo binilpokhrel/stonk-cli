@@ -29,46 +29,33 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`stonk-cli comment:get`](#stonk-cli-commentget)
+* [`stonk-cli comment:get [PARAM]`](#stonk-cli-commentget-param)
 * [`stonk-cli comment:set [PARAM]`](#stonk-cli-commentset-param)
-* [`stonk-cli hello [FILE]`](#stonk-cli-hello-file)
 * [`stonk-cli help [COMMAND]`](#stonk-cli-help-command)
 * [`stonk-cli ipo`](#stonk-cli-ipo)
 * [`stonk-cli news:get`](#stonk-cli-newsget)
 * [`stonk-cli news:set FILE`](#stonk-cli-newsset-file)
-* [`stonk-cli price`](#stonk-cli-price)
+* [`stonk-cli price:get`](#stonk-cli-priceget)
+* [`stonk-cli price:set`](#stonk-cli-priceset)
 * [`stonk-cli user`](#stonk-cli-user)
 
-## `stonk-cli comment:get`
+## `stonk-cli comment:get [PARAM]`
 
 find comments about a given article, company, or trade history
 
 ```
 USAGE
-  $ stonk-cli comment:get
+  $ stonk-cli comment:get [PARAM]
+
+ARGUMENTS
+  PARAM  used with --type flag to specify a specific fiscal year (finance), url (article), or trade date (history)
 
 OPTIONS
-  -D, --days                          used with --range to measure days
-  -M, --months                        used with --range to measure months
-  -R, --reverse                       reverses --range to end (instead of starting) on the specified date of interest
   -T, --tag=tag                       limit search to provided tag(s)
-  -Y, --years                         used with --range to measure years
-  -d, --day=day                       day of date of interest
-
-  -f, --full-date=full-date           full date of interest in yyyy-m-d format. for less granularity, use --year,
-                                      --month, and/or --day
-
   -h, --help                          show CLI help
-
-  -m, --month=month                   month of date of interest
-
-  -r, --range=range                   period of time starting from specified date of interest. default unit is month.
-
-  -s, --symbol=symbol                 name/ticker/symbol of stock(s)
-
+  -s, --symbol=symbol                 (required) name/ticker/symbol of stock(s)
   -t, --type=finance|article|history  type of comment to search for
-
-  -y, --year=year                     year of date of interest
+  -u, --user_id=user_id               only find comments from the given user id
 ```
 
 _See code: [src/commands/comment/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/comment/get.ts)_
@@ -88,31 +75,11 @@ OPTIONS
   -T, --tag=tag                       limit search to provided tag(s)
   -h, --help                          show CLI help
   -m, --message=message               (required) comment message
-  -s, --symbol=symbol                 name/ticker/symbol of stock(s)
+  -s, --symbol=symbol                 (required) name/ticker/symbol of stock(s)
   -t, --type=finance|article|history  type of comment to search for
 ```
 
 _See code: [src/commands/comment/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/comment/set.ts)_
-
-## `stonk-cli hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ stonk-cli hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ stonk-cli hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/hello.ts)_
 
 ## `stonk-cli help [COMMAND]`
 
@@ -156,28 +123,10 @@ USAGE
   $ stonk-cli news:get
 
 OPTIONS
-  -D, --days                 used with --range to measure days
-  -M, --months               used with --range to measure months
-  -R, --reverse              reverses --range to end (instead of starting) on the specified date of interest
-  -Y, --years                used with --range to measure years
-  -d, --day=day              day of date of interest
-
-  -f, --full-date=full-date  full date of interest in yyyy-m-d format. for less granularity, use --year, --month, and/or
-                             --day
-
   -h, --help                 show CLI help
-
   -l, --limit=limit          number of rows to return
-
-  -m, --month=month          month of date of interest
-
   -p, --publisher=publisher  name of publisher(s) to search for
-
-  -r, --range=range          period of time starting from specified date of interest. default unit is month.
-
   -s, --symbol=symbol        name/ticker/symbol of stock(s)
-
-  -y, --year=year            year of date of interest
 ```
 
 _See code: [src/commands/news/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/news/get.ts)_
@@ -214,13 +163,13 @@ OPTIONS
 
 _See code: [src/commands/news/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/news/set.ts)_
 
-## `stonk-cli price`
+## `stonk-cli price:get`
 
 get the price of one or more stocks, on a single date, single quarter, or range of either
 
 ```
 USAGE
-  $ stonk-cli price
+  $ stonk-cli price:get
 
 OPTIONS
   -D, --days                                used with --range to measure days
@@ -254,7 +203,29 @@ OPTIONS
   -y, --year=year                           year of date of interest
 ```
 
-_See code: [src/commands/price.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/price.ts)_
+_See code: [src/commands/price/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/price/get.ts)_
+
+## `stonk-cli price:set`
+
+set the daily values of a single stock
+
+```
+USAGE
+  $ stonk-cli price:set
+
+OPTIONS
+  -a, --adj_close=adj_close  (required) adjusted cloding value of the stock on the day.
+  -c, --close=close          (required) closing value of the stock on the day.
+  -d, --date=date            (required) full date of interest in yyyy-mm-dd format.
+  -h, --help                 show CLI help
+  -l, --low=low              (required) lowest value of the stock on the day.
+  -o, --open=open            (required) opening value of the stock on the day.
+  -s, --symbol=symbol        (required) name/ticker/symbol of stock
+  -u, --high=high            (required) highest value of the stock on the day.
+  -v, --volume=volume        (required) volume of stocks on the day.
+```
+
+_See code: [src/commands/price/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.0/src/commands/price/set.ts)_
 
 ## `stonk-cli user`
 

@@ -14,7 +14,7 @@ const ipoFlags = {
 type ipoFlags = BaseFlags;
 
 export default class Ipo extends Command {
-  static description = 'describe the command here'
+  static description = 'get ipo data related to a particular stock'
 
   static flags = {
     [ipoFlags.HELP]: flags.help({ char: 'h' }),

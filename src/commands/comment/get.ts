@@ -45,7 +45,7 @@ export default class Comment extends Command {
     static args = [
         {
             name: 'param',
-            description: 'fiscal year (finance), url (article), or trade date (history)'
+            description: 'used with --type flag to specify a specific fiscal year (finance), url (article), or trade date (history)'
         }
     ]
 

@@ -15,7 +15,7 @@ const userFlags = {
 type userFlags = BaseFlags;
 
 export default class User extends Command {
-  static description = 'describe the command here'
+  static description = 'log in as a new or existing user'
 
   static flags = {
     [userFlags.NAME]: flags.string({char: 'n', description: 'username or fullname', required: true}),

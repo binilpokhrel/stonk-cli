@@ -2,7 +2,6 @@ import { Command, flags } from '@oclif/command';
 import { cli } from 'cli-ux';
 import { Article } from '../../models/articles.model';
 import * as ArticleService from '../../services/article.service';
-import { DateFlags, StaticDateFlags } from '../../services/date.service';
 
 enum BaseFlags {
     HELP = 'help',
@@ -12,16 +11,14 @@ enum BaseFlags {
 }
 
 const NewsFlags = {
-    ...DateFlags,
     ...BaseFlags
 };
-type NewsFlags = BaseFlags | DateFlags;
+type NewsFlags = BaseFlags;
 
 export default class News extends Command {
     static description = 'retrieve article URLs, with optional restrictions on publishers and on symbols mentioned in the articles';
 
     static flags = {
-        ...StaticDateFlags,
         [NewsFlags.HELP]: flags.help({ char: 'h' }),
         [NewsFlags.SYMBOL]: flags.string({
             char: 's',

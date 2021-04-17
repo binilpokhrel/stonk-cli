@@ -3,8 +3,8 @@ import { asArray, connect, listAsValues } from "./base.service";
 import * as UsersService from './users.service';
 
 export const setComment = async (
-    params: {message: string, tickers: string[], tags: string[], type?: string, specialization: string}
-): Promise<{results?: GeneralComment[], error?: Error}> => {
+    params: { message: string, tickers: string[], tags: string[], type?: string, specialization: string }
+): Promise<{ results?: GeneralComment[], error?: Error }> => {
     const db = await connect();
 
     const user_id = await UsersService.getCurrentUserId();
@@ -17,7 +17,7 @@ export const setComment = async (
         VALUES
             (${user_id}, NOW(), NOW(), '${params.message}')`
     );
-    
+
     queries.push(`SET @last_comment_id = LAST_INSERT_ID()`);
 
     let specialization_query = '';
@@ -57,7 +57,7 @@ export const setComment = async (
         for (let i = 0; i < queries.length; i++) {
             const query = queries[i];
             if (query && query.length > 0) {
-                console.log(query);
+                // console.log(query);
                 if (i == 0) {
                     [rows, fields] = await db.execute(query);
                 } else {
@@ -68,16 +68,16 @@ export const setComment = async (
         db.commit();
     } catch (e) {
         db.rollback();
-        return {error: e}
+        return { error: e }
     }
- 
+
     db.destroy();
-    return {results: (asArray(rows) as GeneralComment[])}
+    return { results: (asArray(rows) as GeneralComment[]) }
 }
 
 export const getComments = async (
-    params: {uID?: number, tickers: string[], tags: string[], type?: string, specialization?: string}
-): Promise<{results?: GeneralComment[], error?: Error}> => {
+    params: { uID?: number, tickers: string[], tags: string[], type?: string, specialization?: string }
+): Promise<{ results?: GeneralComment[], error?: Error }> => {
 
     const db = await connect();
 
@@ -126,8 +126,8 @@ export const getComments = async (
     if (params.uID) {
         where.push(`comments.user_id=${params.uID}`);
     }
-    const query = 
-    `
+    const query =
+        `
         SELECT DISTINCT
             ${select.join(',')}
         FROM comments
@@ -166,19 +166,19 @@ export const getComments = async (
     await db.beginTransaction();
     try {
         [rows, fields] = await db.execute(query);
-        db.commit(); 
+        db.commit();
     } catch (e) {
         db.rollback();
-        return {error: e}
+        return { error: e }
     }
 
     db.destroy();
 
     rows = asArray(rows).map(row => {
         if (params.tags) {
-            return {...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(','), "tags": row.tags.split(',')}
+            return { ...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(','), "tags": row.tags.split(',') }
         } else {
-            return {...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(',')}
+            return { ...row, "last_updated_at": new Date(row.last_updated_at), "tickers": row.tickers.split(',') }
         }
     });
 
@@ -186,16 +186,16 @@ export const getComments = async (
 
     switch (params.type) {
         case 'finance': {
-            return {results: (asArray(rows) as FinanceComment[])}
+            return { results: (asArray(rows) as FinanceComment[]) }
         }
         case 'article': {
-            return {results: (asArray(rows) as ArticleComment[])}
+            return { results: (asArray(rows) as ArticleComment[]) }
         }
         case 'history': {
-            return {results: (asArray(rows) as HistoryComment[])}
+            return { results: (asArray(rows) as HistoryComment[]) }
         }
         default: {
-            return {results: (asArray(rows) as GeneralComment[])}
+            return { results: (asArray(rows) as GeneralComment[]) }
         }
     }
 }

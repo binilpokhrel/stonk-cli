@@ -8,7 +8,7 @@ export const getUserData = async (name: string) => {
     const query =
         `SELECT * FROM users where name="${name}"`;
 
-    console.log(query);
+    // console.log(query);
 
     const [rows, fields] = await db.execute(query);
  
@@ -27,7 +27,7 @@ export const registerUser = async (name: string, priv: boolean) => {
     const query =
         `INSERT INTO users (name, priv) VALUES ("${name}", ${priv ? 1 : 0})`;
 
-    console.log(query);
+    // console.log(query);
 
     const [rows, fields] = await db.execute(query);
  

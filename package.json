@@ -52,7 +52,21 @@
     "bin": "stonk-cli",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "topics": {
+      "comment": {
+        "description": "manage comments about a stock articles, companies, or trade histories"
+      },
+      "ipo": {
+        "description": "manage ipo data related to a particular stock"
+      },
+      "news": {
+        "description": "manage news articles related to particular stocks"
+      },
+      "price": {
+        "description": "manage price information of one or more stocks, on a single date, single quarter, or range of either"
+      }
+    }
   },
   "repository": "binilpokhrel/stonk-cli",
   "scripts": {

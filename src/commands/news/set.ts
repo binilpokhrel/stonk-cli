@@ -1,40 +1,77 @@
 import { Command, flags } from '@oclif/command';
-import { DateFlags, StaticDateFlags } from '../../services/date.service';
-import { createReadStream } from 'fs';
+import * as UsersService from '../../services/users.service';
+import * as ArticlesService from '../../services/article.service';
 
 enum BaseFlags {
     HELP = 'help',
-    ESCAPE = 'escape'
+    URL = 'url',
+    HEADLINE = 'headline',
+    DATE = 'date',
+    PUBLISHER = 'publisher',
+    SYMBOL = 'symbol'
 }
 
 const NewsFlags = {
-    ...DateFlags,
     ...BaseFlags
 };
-type NewsFlags = BaseFlags | DateFlags;
+type NewsFlags = BaseFlags;
 
 export default class News extends Command {
-    static description = 'set article URLs, with optional restrictions on publishers and on symbols mentioned in the articles';
+    static description = 'insert a new record of an article';
 
     static flags = {
-        ...StaticDateFlags,
         [NewsFlags.HELP]: flags.help({ char: 'h' }),
+        [NewsFlags.URL]: flags.string({
+            char: 'u',
+            description: 'URL of article',
+            required: true
+        }),
+        [NewsFlags.HEADLINE]: flags.string({
+            char: 'l',
+            description: 'headline of article',
+            required: true
+        }),
+        [NewsFlags.DATE]: flags.string({
+            char: 'd',
+            description: 'date of article in yyyy-mm-dd format',
+            required: true
+        }),
+        [NewsFlags.PUBLISHER]: flags.string({
+            char: 'p',
+            description: 'publisher of article',
+            required: true
+        }),
+        [NewsFlags.SYMBOL]: flags.string({
+            char: 's',
+            description: 'name/ticker/symbol of stock(s) mentioned in the article',
+            multiple: true
+        }),
     };
-
-    static args = [
-        {
-            name: 'file',
-            required: true,
-            description: 'csv with headline,url,publisher,date,stock information'
-        }
-    ];
 
     async run() {
         const { args, flags } = this.parse(News);
 
-        if (!args.file) {
-            this.error('You must provide a filepath!');
+        if (!await UsersService.checkUserLoggedIn()) {
+            this.error('please login using user command first', { suggestions: ['user -h'] });
         }
 
+        if (!await UsersService.getCurrentUserPriv()) {
+            this.error('Current user does not have write permissions on database');
+        }
+
+        const params = {
+            url: flags[NewsFlags.URL],
+            tickers: flags[NewsFlags.SYMBOL],
+            headline: flags[NewsFlags.HEADLINE],
+            publisher: flags[NewsFlags.PUBLISHER],
+            date: flags[NewsFlags.DATE]
+        };
+
+        const { results: articles, error: article_error } = await ArticlesService.setArticle(params);
+        if (article_error) {
+            this.error('Could not add new article. Make sure the url starts with http and that the date is valid. If a stock ticker was supplied, make sure it exists already.');
+        } else {
+            this.log('Article added successfully!');
+        }
     }
 }

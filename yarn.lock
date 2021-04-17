@@ -610,6 +610,38 @@
     "supports-hyperlinks" "^2.1.0"
     "tslib" "^2.0.0"
 
+"cli-ux@^5.5.1":
+  "integrity" "sha512-t3DT1U1C3rArLGYLpKa3m9dr/8uKZRI8HRm/rXKL7UTjm4c+Yd9zHNWg1tP8uaJkUbhmvx5SQHwb3VWpPUVdHQ=="
+  "resolved" "https://registry.npmjs.org/cli-ux/-/cli-ux-5.5.1.tgz"
+  "version" "5.5.1"
+  dependencies:
+    "@oclif/command" "^1.6.0"
+    "@oclif/errors" "^1.2.1"
+    "@oclif/linewrap" "^1.0.0"
+    "@oclif/screen" "^1.0.3"
+    "ansi-escapes" "^4.3.0"
+    "ansi-styles" "^4.2.0"
+    "cardinal" "^2.1.1"
+    "chalk" "^4.1.0"
+    "clean-stack" "^3.0.0"
+    "cli-progress" "^3.4.0"
+    "extract-stack" "^2.0.0"
+    "fs-extra" "^8.1"
+    "hyperlinker" "^1.0.0"
+    "indent-string" "^4.0.0"
+    "is-wsl" "^2.2.0"
+    "js-yaml" "^3.13.1"
+    "lodash" "^4.17.11"
+    "natural-orderby" "^2.0.1"
+    "object-treeify" "^1.1.4"
+    "password-prompt" "^1.1.2"
+    "semver" "^7.3.2"
+    "string-width" "^4.2.0"
+    "strip-ansi" "^6.0.0"
+    "supports-color" "^7.1.0"
+    "supports-hyperlinks" "^2.1.0"
+    "tslib" "^2.0.0"
+
 "cli-width@^2.0.0":
   "integrity" "sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw=="
   "resolved" "https://registry.npmjs.org/cli-width/-/cli-width-2.2.1.tgz"
@@ -2597,7 +2629,7 @@
 
 "stonk-cli@file:../../../../../usr/local/lib/node_modules/stonk-cli":
   "resolved" "file:../../../../../usr/local/lib/node_modules/stonk-cli"
-  "version" "0.0.0"
+  "version" "0.0.1"
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
@@ -2818,12 +2850,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.0":
-  "integrity" "sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A=="
-  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.1.0.tgz"
-  "version" "2.1.0"
-
-"tslib@^2.0.3":
+"tslib@^2.0.0", "tslib@^2.0.3":
   "integrity" "sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.1.0.tgz"
   "version" "2.1.0"

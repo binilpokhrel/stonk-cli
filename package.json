@@ -1,7 +1,7 @@
 {
   "name": "stonk-cli",
   "description": "cli for querying all the stonks",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Binil Pokhrel @binilpokhrel",
   "bin": {
     "stonk-cli": "./bin/run"

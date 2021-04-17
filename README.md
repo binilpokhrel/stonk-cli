@@ -232,8 +232,8 @@ OPTIONS
 
   -s, --symbol=symbol                       (required) name/ticker/symbol of stock
 
-  -t, --type=open|close|high|low|adj_close  (required) [default: open] which price of the day. options are: open, close,
-                                            high, low, adjclose
+  -t, --type=open|close|high|low|adj_close  [default: open] which price of the day. options are: open, close, high, low,
+                                            adjclose
 
   -w, --delta                               use this flag to specify finding the absolute difference between the values
                                             at the ends of a range

@@ -66,6 +66,9 @@
       "price": {
         "description": "manage price information of one or more stocks, on a single date, single quarter, or range of either"
       }
+    },
+    "macos": {
+      "identifier": "com.stonks.cli"
     }
   },
   "repository": "binilpokhrel/stonk-cli",

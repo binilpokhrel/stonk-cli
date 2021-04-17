@@ -37,8 +37,7 @@ export default class Price extends Command {
       char: 't',
       description: 'which price of the day. options are: open, close, high, low, adjclose',
       default: 'open',
-      options: ['open', 'close', 'high', 'low', 'adj_close'],
-      required: true
+      options: ['open', 'close', 'high', 'low', 'adj_close']
     }),
     [PriceFlags.DELTA]: flags.boolean({
       char: 'w',

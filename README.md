@@ -20,7 +20,7 @@ $ npm install -g stonk-cli
 $ stonk-cli COMMAND
 running command...
 $ stonk-cli (-v|--version|version)
-stonk-cli/0.0.1 darwin-x64 node-v15.13.0
+stonk-cli/0.0.2 darwin-x64 node-v15.13.0
 $ stonk-cli --help [COMMAND]
 USAGE
   $ stonk-cli COMMAND
@@ -60,7 +60,7 @@ OPTIONS
   -u, --user_id=user_id               only find comments from the given user id
 ```
 
-_See code: [src/commands/comment/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/comment/get.ts)_
+_See code: [src/commands/comment/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/comment/get.ts)_
 
 ## `stonk-cli comment:set [PARAM]`
 
@@ -81,7 +81,7 @@ OPTIONS
   -t, --type=finance|article|history  type of comment to search for
 ```
 
-_See code: [src/commands/comment/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/comment/set.ts)_
+_See code: [src/commands/comment/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/comment/set.ts)_
 
 ## `stonk-cli finances [FILE]`
 
@@ -107,7 +107,7 @@ OPTIONS
       (required) year for which financial data is requested
 ```
 
-_See code: [src/commands/finances.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/finances.ts)_
+_See code: [src/commands/finances.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/finances.ts)_
 
 ## `stonk-cli help [COMMAND]`
 
@@ -142,7 +142,7 @@ OPTIONS
                                                                                 requested
 ```
 
-_See code: [src/commands/ipo/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/ipo/get.ts)_
+_See code: [src/commands/ipo/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/ipo/get.ts)_
 
 ## `stonk-cli ipo:set`
 
@@ -163,7 +163,7 @@ OPTIONS
   -v, --volume=volume  (required) volume of the stock on the first day.
 ```
 
-_See code: [src/commands/ipo/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/ipo/set.ts)_
+_See code: [src/commands/ipo/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/ipo/set.ts)_
 
 ## `stonk-cli news:get`
 
@@ -180,7 +180,7 @@ OPTIONS
   -s, --symbol=symbol        name/ticker/symbol of stock(s)
 ```
 
-_See code: [src/commands/news/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/news/get.ts)_
+_See code: [src/commands/news/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/news/get.ts)_
 
 ## `stonk-cli news:set`
 
@@ -199,7 +199,7 @@ OPTIONS
   -u, --url=url              (required) URL of article
 ```
 
-_See code: [src/commands/news/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/news/set.ts)_
+_See code: [src/commands/news/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/news/set.ts)_
 
 ## `stonk-cli price:get`
 
@@ -241,7 +241,7 @@ OPTIONS
   -y, --year=year                           year of date of interest
 ```
 
-_See code: [src/commands/price/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/price/get.ts)_
+_See code: [src/commands/price/get.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/price/get.ts)_
 
 ## `stonk-cli price:set`
 
@@ -263,7 +263,7 @@ OPTIONS
   -v, --volume=volume        (required) volume of stocks on the day.
 ```
 
-_See code: [src/commands/price/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/price/set.ts)_
+_See code: [src/commands/price/set.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/price/set.ts)_
 
 ## `stonk-cli user`
 
@@ -279,5 +279,5 @@ OPTIONS
   -r, --register   use this flag to specify that we wish for this user to be registered
 ```
 
-_See code: [src/commands/user.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.1/src/commands/user.ts)_
+_See code: [src/commands/user.ts](https://github.com/binilpokhrel/stonk-cli/blob/v0.0.2/src/commands/user.ts)_
 <!-- commandsstop -->

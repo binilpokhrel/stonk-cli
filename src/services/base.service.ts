@@ -4,11 +4,11 @@ dotenv.config();
 
 export const connect = async () => {
     return createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PWD,
-        database: process.env.DB_NAME,
-        port: Number(process.env.PORT)
+        host: process.env.DB_HOST || "localhost",
+        user: process.env.DB_USER || "root",
+        password: process.env.DB_PWD || "root",
+        database: process.env.DB_NAME || "test_db",
+        port: Number(process.env.PORT || "3307")
     });
 }
 
